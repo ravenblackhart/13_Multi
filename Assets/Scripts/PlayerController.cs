@@ -15,16 +15,32 @@ public class PlayerController : MonoBehaviour
         // Get components
         _avatar = GetComponent<Alteruna.Avatar>();
         _renderer = GetComponent<SpriteRenderer>();
+
+        if (_avatar.IsMe)
+        {
+            _renderer.color = Color.green;
+        }
+        else
+        {
+            _renderer.color = Color.red;
+        }
     }
 
     void Update()
     {
+        
+        if (_avatar.IsMe)                  
+        {                                  
+            _renderer.color = Color.green; 
+        }                                  
+        else                               
+        {                                  
+            _renderer.color = Color.red;   
+        }
+        
         // Only let input affect the avatar if it belongs to me
         if (_avatar.IsMe)
         {
-            // Set the avatar representing me to be green
-            _renderer.color = Color.green;
-
             // Get the horizontal and vertical axis.
             float _translation = Input.GetAxis("Vertical") * Speed;
             float _rotation = -Input.GetAxis("Horizontal") * RotationSpeed;
@@ -35,5 +51,6 @@ public class PlayerController : MonoBehaviour
             transform.Translate(0, _translation, 0, Space.Self);
             transform.Rotate(0, 0, _rotation);
         }
+    
     }
 }
