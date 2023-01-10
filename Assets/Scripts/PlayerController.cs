@@ -8,36 +8,26 @@ public class PlayerController : MonoBehaviour
     public float RotationSpeed = 180.0f;
 
     private Alteruna.Avatar _avatar;
-    private SpriteRenderer _renderer;
+    private MeshRenderer _renderer;
 
     void Start()
     {
         // Get components
         _avatar = GetComponent<Alteruna.Avatar>();
-        _renderer = GetComponent<SpriteRenderer>();
+        _renderer = GetComponent<MeshRenderer>();
 
         if (_avatar.IsMe)
         {
-            _renderer.color = Color.green;
+            _renderer.material.color = Color.green;
         }
         else
         {
-            _renderer.color = Color.red;
+            _renderer.material.color = Color.red;
         }
     }
 
     void Update()
     {
-        
-        if (_avatar.IsMe)                  
-        {                                  
-            _renderer.color = Color.green; 
-        }                                  
-        else                               
-        {                                  
-            _renderer.color = Color.red;   
-        }
-        
         // Only let input affect the avatar if it belongs to me
         if (_avatar.IsMe)
         {
