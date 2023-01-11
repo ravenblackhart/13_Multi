@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float Speed = 10.0f;
-    public float RotationSpeed = 180.0f;
 
     private Alteruna.Avatar _avatar;
     private MeshRenderer _renderer;
@@ -31,15 +30,18 @@ public class PlayerController : MonoBehaviour
         // Only let input affect the avatar if it belongs to me
         if (_avatar.IsMe)
         {
-            // Get the horizontal and vertical axis.
             float _translation = Input.GetAxis("Vertical") * Speed;
-            float _rotation = -Input.GetAxis("Horizontal") * RotationSpeed;
-
+            Vector3 dir = new Vector3(0, _translation, 0);
+            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, 1))
+            {
+                if (hit.transform.GetComponent<WallController>())
+                {
+                    return;
+                }
+            }
+            // Get the horizontal and vertical axis.
             _translation *= Time.deltaTime;
-            _rotation *= Time.deltaTime;
-
             transform.Translate(0, _translation, 0, Space.Self);
-            transform.Rotate(0, 0, _rotation);
         }
     
     }

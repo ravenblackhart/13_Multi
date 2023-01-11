@@ -7,22 +7,14 @@ using Avatar = Alteruna.Avatar;
 
 public class PlayerUI : AttributesSync
 {
-    [SynchronizableField] public int points = 100;
-    [SynchronizableField] public int dmg = 5;
+    [SynchronizableField] public int points = 0;
+    [SerializeField] public int dmg = 5;
 
-    [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private int selfLayer;
-    
-    
     private Avatar avatar;
     
     void Start()
     {
         avatar = GetComponentInParent<Avatar>();
-        if (avatar.IsMe)
-        {
-            avatar.gameObject.layer = selfLayer;
-        }
     }
 
     void Update()
@@ -31,26 +23,15 @@ public class PlayerUI : AttributesSync
         {
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Raycast();
-        }
     }
 
-    private void Raycast()
+    public void DecreasePoints()
     {
-        if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, Mathf.Infinity, playerLayer))
-        {
-            PlayerUI playerUI = hit.transform.GetComponentInChildren<PlayerUI>();
-            playerUI.DecreasePoints();
-        }
-        
-    }
-
-    private void DecreasePoints()
-    {
-        Debug.Log("Got shot");
         points -= dmg;
+    }
+
+    public void IncreasePoints()
+    {
+        points += dmg;
     }
 }
