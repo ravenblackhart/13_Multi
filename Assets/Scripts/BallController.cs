@@ -10,6 +10,7 @@ public class BallController : MonoBehaviour
     private Vector3 direction = Vector3.left + Vector3.up + Vector3.left ;
 
     private Vector3 startPos;
+    
 
     void Start()
     {

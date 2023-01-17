@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Alteruna;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using Avatar = UnityEngine.Avatar;
@@ -8,7 +9,7 @@ using Avatar = UnityEngine.Avatar;
 public class WallController : AttributesSync
 {
     [SerializeField] public bool deathWall = false;
-    [SerializeField] private TMP_Text pointsText;
+    [CanBeNull][SerializeField] private TMP_Text pointsText;
 
     [SynchronizableField] public int points = 0;
     [SerializeField] public int dmg = 1;
