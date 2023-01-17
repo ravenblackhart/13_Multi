@@ -16,7 +16,11 @@ public class WallController : AttributesSync
 
     void Update()
     {
-        pointsText.text = points.ToString();
+        if (deathWall && pointsText != null)
+        {
+            pointsText.text = points.ToString();
+        }
+        
     }
 
     public void DecreasePoints()

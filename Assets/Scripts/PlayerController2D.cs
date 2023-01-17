@@ -30,19 +30,15 @@ public class PlayerController2D : MonoBehaviour
         // Only let input affect the avatar if it belongs to me
         if (_avatar.IsMe)
         {
-            float _translation = Input.GetAxis("Vertical") * Speed;
-            Vector3 dir = new Vector3(0, _translation, 0);
-            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, 1))
-            {
-                if (hit.transform.GetComponent<WallController>())
-                {
-                    return;
-                }
-            }
+            // Set the avatar representing me to be green
+            _renderer.color = Color.green;
+
             // Get the horizontal and vertical axis.
+            float _translation = Input.GetAxis("Vertical") * Speed;
             _translation *= Time.deltaTime;
+
             transform.Translate(0, _translation, 0, Space.Self);
+
         }
-    
     }
 }
