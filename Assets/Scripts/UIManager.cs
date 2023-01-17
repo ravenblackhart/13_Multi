@@ -62,6 +62,7 @@ public class UIManager : MonoBehaviour
     {
         currentRoom.text = roomName;
         roomMenu.enabled = false; 
+        Time.timeScale = 1f;
     }
 #region Base Functions
     public void Pause()
