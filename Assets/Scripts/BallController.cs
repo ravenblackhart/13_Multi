@@ -80,7 +80,7 @@ public class BallController : MonoBehaviour
 
     }
 
-    private void Restart()
+    public void Restart()
     {
         transform.position = startPos;
         moveBall = false;
