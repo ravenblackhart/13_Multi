@@ -125,11 +125,11 @@ public class RoomMenuMod : MonoBehaviour
             _aump.RoomJoined.AddListener(JoinedRoom);
             _aump.RoomLeft.AddListener(LeftRoom);
             StartButton.onClick.AddListener(() => { _aump.JoinOnDemandRoom(); });
-            LeaveButton.onClick.AddListener(() =>
-            {
-                _aump.CurrentRoom?.Leave();
-                _uiManager.OpenRoomsMenu();
-            });
+            // LeaveButton.onClick.AddListener(() =>
+            // {
+            //     _aump.CurrentRoom?.Leave();
+            //     _uiManager.OpenRoomsMenu();
+            // });
         }
 
         if (TitleText != null)
@@ -144,5 +144,11 @@ public class RoomMenuMod : MonoBehaviour
             yield return new WaitForSeconds(RefreshInterval);
             _aump.RefreshRoomList();
         }
+    }
+
+    public void LeaveRoom()
+    {
+        _aump.CurrentRoom?.Leave();
+        _uiManager.OpenRoomsMenu();
     }
 }

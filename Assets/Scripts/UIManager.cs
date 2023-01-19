@@ -99,7 +99,7 @@ private void Start()
 {
     _avatar = GetComponent<Alteruna.Avatar>();
     
-    if (_avatar.gameObject.transform.position.x > 0)
+    if (_avatar.IsMe && _avatar.gameObject.transform.position.x > 0)
     {
         leftLabel.text = "Them";
         leftLabel.color = Color.red;
