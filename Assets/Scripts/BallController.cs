@@ -28,33 +28,39 @@ public class BallController : MonoBehaviour
 
         Vector2 pos = transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(pos, direction, 1f);
-        if (hit.collider != null)
-        {
-            PlayerController2D player = hit.transform.GetComponent<PlayerController2D>();
-            Vector2 incomingVec = hit.point - pos;
-            Vector2 reflectVec = Vector2.Reflect(incomingVec, hit.normal);
-            
-            dir = direction;
-            norml = hit.normal;
-            
-            if (player)
-            {
-                direction = reflectVec;
-            }
-            WallController wall = hit.transform.GetComponent<WallController>();
-            if (wall)
-            {
-                if (wall.deathWall)
-                {
-                    wall.IncreasePoints();
-                    Restart();
-                    return;
+        RaycastHit2D[] result = new RaycastHit2D[5];
+        int numberOfHits = Physics2D.RaycastNonAlloc(pos, direction, result, 1f);
+        
+        if (numberOfHits > 0) {
+            foreach (RaycastHit2D hit in result) {
+                if (!hit ) {
+                    break;
                 }
-                direction = reflectVec;
+                
+                PlayerController2D player = hit.transform.GetComponent<PlayerController2D>();
+                Vector2 incomingVec = hit.point - pos;
+                Vector2 reflectVec = Vector2.Reflect(incomingVec, hit.normal);
+
+                dir = direction;
+                norml = hit.normal;
+
+                if (player) {
+                    direction = reflectVec;
+                }
+
+                WallController wall = hit.transform.GetComponent<WallController>();
+                if (wall) {
+                    if (wall.deathWall) {
+                        wall.IncreasePoints();
+                        Restart();
+                        return;
+                    }
+
+                    direction = reflectVec;
+                }
             }
         }
-            
+
         if (moveBall)
         {
             Vector3 dir = direction.normalized * Time.deltaTime;
