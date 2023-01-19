@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text leftLabel;
     [SerializeField] private TMP_Text rightLabel;
     [SerializeField] private TMP_Text pauseButton;
+    [SerializeField] private TMP_Text infoText; 
     [SerializeField] private Button leaveButton;
     [SerializeField] private Button roomsButton; 
 
@@ -41,11 +42,26 @@ public class UIManager : MonoBehaviour
         rightScore.text = "0";
 
         currentRoom.text = null; 
+        
+        UpdateInfo();
 
+    }
+
+    private void UpdateInfo()
+    {
+        // //infoText.SetText(
+        //     $"{"use"}" +
+        //     $"{"up/down arrows or W / S keys".AddColor(Color.yellow)}" +
+        //     $"{"use up/down arrows or W / S keys to move "}" +
+        //     
+        //                  );
     }
 
     public void OpenRoomsMenu()
     {
+        gameOverMenu.enabled = false;
+        pauseMenu.enabled = false;
+        
         if (roomMenu.isActiveAndEnabled)
         {
             roomMenu.enabled = false;

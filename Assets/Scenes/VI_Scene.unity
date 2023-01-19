@@ -1334,9 +1334,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1489300729}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Quit
+      - m_Target: {fileID: 1489300730}
+        m_TargetAssemblyTypeName: RoomMenuMod, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1467,7 +1467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456584660}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1489300730}
+        m_TargetAssemblyTypeName: RoomMenuMod, Assembly-CSharp
+        m_MethodName: LeaveRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &456584660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2634,7 +2646,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1489300729}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Quit
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4222,7 +4234,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1489300729}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Quit
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4560,7 +4572,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How to play
+  m_text: use up/down arrows or W / S keys to move your avatar (indicated by green
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63a9e93c7afe02a4c9eddffe5677cc42, type: 2}
   m_sharedMaterial: {fileID: -2116745171736029121, guid: 63a9e93c7afe02a4c9eddffe5677cc42, type: 2}
@@ -5334,6 +5346,7 @@ MonoBehaviour:
   leftLabel: {fileID: 1809411437}
   rightLabel: {fileID: 1446463843}
   pauseButton: {fileID: 1654962366}
+  infoText: {fileID: 0}
   leaveButton: {fileID: 456584659}
   roomsButton: {fileID: 0}
   roomMenu: {fileID: 8763101912954316215}
@@ -5645,9 +5658,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1489300729}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Quit
+      - m_Target: {fileID: 1489300730}
+        m_TargetAssemblyTypeName: RoomMenuMod, Assembly-CSharp
+        m_MethodName: LeaveRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6197,7 +6210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e222466c7e16cb04eb7dc42cf594a233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 10
 --- !u!58 &1809270914
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6684,9 +6697,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1489300729}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Quit
+      - m_Target: {fileID: 1489300730}
+        m_TargetAssemblyTypeName: RoomMenuMod, Assembly-CSharp
+        m_MethodName: LeaveRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

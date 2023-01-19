@@ -124,12 +124,12 @@ public class RoomMenuMod : MonoBehaviour
             _aump.RoomListUpdated.AddListener(UpdateList);
             _aump.RoomJoined.AddListener(JoinedRoom);
             _aump.RoomLeft.AddListener(LeftRoom);
-            StartButton.onClick.AddListener(() => { _aump.JoinOnDemandRoom(); });
+            //StartButton.onClick.AddListener(() => { _aump.JoinOnDemandRoom(); });
             // LeaveButton.onClick.AddListener(() =>
             // {
             //     _aump.CurrentRoom?.Leave();
             //     _uiManager.OpenRoomsMenu();
-            // });
+            // });_
         }
 
         if (TitleText != null)
@@ -150,5 +150,11 @@ public class RoomMenuMod : MonoBehaviour
     {
         _aump.CurrentRoom?.Leave();
         _uiManager.OpenRoomsMenu();
+        
+    }
+
+    public void StartGame()
+    {
+        _aump.JoinOnDemandRoom(); 
     }
 }
