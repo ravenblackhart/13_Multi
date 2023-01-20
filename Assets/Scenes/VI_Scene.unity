@@ -5236,6 +5236,8 @@ GameObject:
   - component: {fileID: 1489300725}
   - component: {fileID: 1489300729}
   - component: {fileID: 1489300730}
+  - component: {fileID: 1489300732}
+  - component: {fileID: 1489300731}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -5379,6 +5381,69 @@ MonoBehaviour:
   LeaveButton: {fileID: 456584659}
   AutomaticallyRefresh: 1
   RefreshInterval: 5
+--- !u!114 &1489300731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489300724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1312809854, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 1956972177}
+  UID: {fileID: 0}
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+    Pending: 0
+    LastUpdated: 0
+    NeverString: Never
+    RealtimeString: Realtime
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+    Pending: 0
+    LastUpdated: 0
+    NeverString: Never
+    RealtimeString: Realtime
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+    Pending: 0
+    LastUpdated: 0
+    NeverString: Never
+    RealtimeString: Realtime
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+    Pending: 0
+    LastUpdated: 0
+    NeverString: Never
+    RealtimeString: Realtime
+  - Name: Max
+    NetLOD: 4
+    Frequency: 500
+    Pending: 0
+    LastUpdated: 0
+    NeverString: Never
+    RealtimeString: Realtime
+--- !u!114 &1489300732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489300724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1709514741, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  a: 11fdc391-08f6-4dc2-a9c4-86f6723c1bbf
 --- !u!1 &1565014992
 GameObject:
   m_ObjectHideFlags: 0
@@ -6886,7 +6951,19 @@ MonoBehaviour:
       m_Calls: []
   RoomLeft:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1956972177}
+        m_TargetAssemblyTypeName: Alteruna.Multiplayer, Alteruna.Trinity
+        m_MethodName: RefreshRoomList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   RoomListUpdated:
     m_PersistentCalls:
       m_Calls: []
