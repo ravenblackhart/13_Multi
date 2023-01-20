@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
+
 public class UIManager : MonoBehaviour
 {
     [Header ("MainUI")]
@@ -41,21 +42,10 @@ public class UIManager : MonoBehaviour
         leftScore.text = "0";
         rightScore.text = "0";
 
-        currentRoom.text = null; 
-        
-        UpdateInfo();
+        currentRoom.text = null;
 
     }
-
-    private void UpdateInfo()
-    {
-        // //infoText.SetText(
-        //     $"{"use"}" +
-        //     $"{"up/down arrows or W / S keys".AddColor(Color.yellow)}" +
-        //     $"{"use up/down arrows or W / S keys to move "}" +
-        //     
-        //                  );
-    }
+    
 
     public void OpenRoomsMenu()
     {
@@ -111,30 +101,31 @@ public class UIManager : MonoBehaviour
     }
 #endregion
 
-private void Start()
-{
-    _avatar = GetComponent<Alteruna.Avatar>();
+    private void Start()
+    {
+        _avatar = GetComponent<Alteruna.Avatar>();
     
-    if (_avatar.IsMe && _avatar.gameObject.transform.position.x > 0)
-    {
-        leftLabel.text = "Them";
-        leftLabel.color = Color.red;
-        leftScore.color = Color.red; 
+        if (_avatar.IsMe && _avatar.gameObject.transform.position.x > 0)
+        {
+            leftLabel.text = "Them";
+            leftLabel.color = Color.red;
+            leftScore.color = Color.red; 
             
-        rightLabel.text = "You"; 
-        rightLabel.color = Color.green;
-        rightScore.color = Color.green; 
-    }
+            rightLabel.text = "You"; 
+            rightLabel.color = Color.green;
+            rightScore.color = Color.green; 
+        }
 
-    else
-    {
-        leftLabel.text = "You";
-        leftLabel.color = Color.green;
-        leftScore.color = Color.green; 
+        else
+        {
+            leftLabel.text = "You";
+            leftLabel.color = Color.green;
+            leftScore.color = Color.green; 
             
-        rightLabel.text = "Them"; 
-        rightLabel.color = Color.red;
-        rightScore.color = Color.red; 
+            rightLabel.text = "Them"; 
+            rightLabel.color = Color.red;
+            rightScore.color = Color.red; 
+        }
     }
 }
-}
+
