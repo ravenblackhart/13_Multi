@@ -38,7 +38,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BallController _ballController;
     [SerializeField] private int winScore;
 
-    private List<WallController> _wallControllers; 
+    private List<WallController> _wallControllers;
+    private List<PlayerController2D> _playerControllers; 
     private int leftInt;
     private int rightInt; 
 
@@ -61,9 +62,11 @@ public class UIManager : MonoBehaviour
         _wallControllers = new List<WallController>(); 
         _wallControllers.AddRange(FindObjectsOfType<WallController>());
 
-        _aump = FindObjectOfType<Multiplayer>(); 
+        _aump = FindObjectOfType<Multiplayer>();
 
-
+        _playerControllers = new List<PlayerController2D>(); 
+        _playerControllers.AddRange(FindObjectsOfType<PlayerController2D>());
+        
     }
 
 
@@ -78,13 +81,18 @@ public class UIManager : MonoBehaviour
         {
             roomMenu.enabled = false;
             Time.timeScale = 1f;
+            foreach (var item in _playerControllers) item.enabled = true; 
         }
                 
         else
         {
             roomMenu.enabled = true;
             Time.timeScale = 0f;
+            foreach (var item in _playerControllers) item.enabled = false; 
+            
         }
+
+        
     }
     public void UpdateRoomName(string roomName)
     {
