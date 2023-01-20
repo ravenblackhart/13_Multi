@@ -8,7 +8,15 @@ public class PlayerController2D : MonoBehaviour
 
     private Alteruna.Avatar _avatar;
     private SpriteRenderer _renderer;
+    private UIManager _uiManager;
 
+    private void Awake()
+    {
+        _uiManager = FindObjectOfType<UIManager>();
+        Debug.Log("searching for UIManager");
+        
+        
+    }
     void Start()
     {
         // Get components
@@ -32,6 +40,7 @@ public class PlayerController2D : MonoBehaviour
         {
             // Set the avatar representing me to be green
             _renderer.color = Color.green;
+            _uiManager.RecolorScores(_avatar);
 
             // Get the horizontal and vertical axis.
             float _translation = Input.GetAxis("Vertical") * Speed;

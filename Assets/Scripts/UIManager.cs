@@ -84,9 +84,11 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void RecolorScores()
+    public void RecolorScores(Alteruna.Avatar player)
     {
-        if (_avatar.IsMe && _avatar.gameObject.transform.position.x > 0)
+        Debug.Log("Assigning Colors to Scoreboard");
+
+        if (player.transform.position.x > 0)
         {
             leftLabel.text = "Them";
             leftLabel.color = Color.red;
@@ -95,6 +97,8 @@ public class UIManager : MonoBehaviour
             rightLabel.text = "You"; 
             rightLabel.color = Color.green;
             rightScore.color = Color.green; 
+            
+            Debug.Log("You are right");
         }
 
         else
@@ -106,6 +110,8 @@ public class UIManager : MonoBehaviour
             rightLabel.text = "Them"; 
             rightLabel.color = Color.red;
             rightScore.color = Color.red; 
+            
+            Debug.Log("You are left");
         }
     }
     
@@ -140,21 +146,5 @@ public class UIManager : MonoBehaviour
     }
 #endregion
 
-    private void Start()
-    {
-
-        if (_avatar == null)
-        {
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Alteruna.Avatar>();
-            if (player.IsMe) _avatar = player; 
-        }
-
-        
-    }
-
-    private void Update()
-    {
-        
-    }
 }
 

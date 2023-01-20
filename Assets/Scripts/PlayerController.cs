@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,14 @@ public class PlayerController : MonoBehaviour
 
     private Alteruna.Avatar _avatar;
     private MeshRenderer _renderer;
+    
+
+   
 
     void Start()
     {
+        
+        
         // Get components
         _avatar = GetComponent<Alteruna.Avatar>();
         _renderer = GetComponent<MeshRenderer>();
