@@ -13,9 +13,6 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _uiManager = FindObjectOfType<UIManager>();
-        Debug.Log("searching for UIManager");
-        
-        
     }
     void Start()
     {

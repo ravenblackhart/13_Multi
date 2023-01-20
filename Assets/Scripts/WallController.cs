@@ -42,4 +42,9 @@ public class WallController : AttributesSync
         _uiManager.TriggerGameOver();
         
     }
+
+    public void ResetPoints()
+    {
+        points = 0; 
+    }
 }

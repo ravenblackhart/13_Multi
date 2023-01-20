@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BallController _ballController;
     [SerializeField] private int winScore;
 
+    private List<WallController> _wallControllers; 
     private int leftInt;
     private int rightInt; 
 
@@ -53,7 +54,13 @@ public class UIManager : MonoBehaviour
         currentRoom.text = null;
 
     }
-    
+
+    private void Start()
+    {
+        _wallControllers = new List<WallController>(); 
+        _wallControllers.AddRange(FindObjectsOfType<WallController>()); 
+    }
+
 
     public void OpenRoomsMenu()
     {
@@ -81,8 +88,8 @@ public class UIManager : MonoBehaviour
 
     public void Restart()
     {
-        leftScore.text = "0";
-        rightScore.text = "0";
+        foreach (var item in _wallControllers) item.ResetPoints();
+        
         gameOverMenu.enabled = false;
         pauseMenu.enabled = false;
 
