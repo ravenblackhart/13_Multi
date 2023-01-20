@@ -5354,8 +5354,9 @@ MonoBehaviour:
   roomMenu: {fileID: 8763101912954316215}
   pauseMenu: {fileID: 10081901}
   gameOverMenu: {fileID: 524743788}
+  gameOverTextField: {fileID: 96913815}
   _ballController: {fileID: 1809270913}
-  winScore: 0
+  winScore: 3
 --- !u!114 &1489300730
 MonoBehaviour:
   m_ObjectHideFlags: 0
