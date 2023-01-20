@@ -29,12 +29,16 @@ public class UIManager : MonoBehaviour
 
     [Header("GameOverMenu")]
     [SerializeField] private Canvas gameOverMenu;
+    [SerializeField] private TMP_Text gameOverTextField; 
     
     
     [Header("Misc")]
     private Alteruna.Avatar _avatar;
     [SerializeField] private BallController _ballController;
-    [SerializeField] private int winScore; 
+    [SerializeField] private int winScore;
+
+    private int leftInt;
+    private int rightInt; 
 
     private void Awake()
     {
@@ -77,8 +81,11 @@ public class UIManager : MonoBehaviour
 
     public void Restart()
     {
+        leftScore.text = "0";
+        rightScore.text = "0";
         gameOverMenu.enabled = false;
         pauseMenu.enabled = false;
+
         Time.timeScale = 1f;
         _ballController.Restart();
     }
@@ -86,11 +93,10 @@ public class UIManager : MonoBehaviour
 
     public void RecolorScores(Alteruna.Avatar player)
     {
-        Debug.Log("Assigning Colors to Scoreboard");
 
         if (player.transform.position.x > 0)
         {
-            leftLabel.text = "Them";
+            leftLabel.text = "Opponent";
             leftLabel.color = Color.red;
             leftScore.color = Color.red; 
             
@@ -107,12 +113,20 @@ public class UIManager : MonoBehaviour
             leftLabel.color = Color.green;
             leftScore.color = Color.green; 
             
-            rightLabel.text = "Them"; 
+            rightLabel.text = "Opponent"; 
             rightLabel.color = Color.red;
             rightScore.color = Color.red; 
             
-            Debug.Log("You are left");
         }
+    }
+
+    public void TriggerGameOver()
+    {
+        leftInt = Convert.ToInt32(leftScore.text) + 1; 
+        rightInt = Convert.ToInt32(rightScore.text) + 1; 
+        
+        if (leftInt >= winScore) GameOver(leftLabel.text + "Won !" );
+        else if (rightInt >= winScore) GameOver(rightLabel.text + "Won !");
     }
     
 #region Base Functions
@@ -134,8 +148,9 @@ public class UIManager : MonoBehaviour
         }
     }
             
-    public void GameOver()
+    public void GameOver(string gameOverText)
     {
+        gameOverTextField.text = gameOverText; 
         gameOverMenu.enabled = true;
         Time.timeScale = 0;
                 

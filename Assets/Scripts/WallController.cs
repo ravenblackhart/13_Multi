@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Alteruna;
@@ -13,6 +14,13 @@ public class WallController : AttributesSync
 
     [SynchronizableField] public int points = 0;
     [SerializeField] public int dmg = 1;
+
+    private UIManager _uiManager; 
+
+    private void Awake()
+    {
+        _uiManager = FindObjectOfType<UIManager>(); 
+    }
 
     void Update()
     {
@@ -31,5 +39,7 @@ public class WallController : AttributesSync
     public void IncreasePoints()
     {
         points += dmg;
+        _uiManager.TriggerGameOver();
+        
     }
 }
