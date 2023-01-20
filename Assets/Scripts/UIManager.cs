@@ -30,7 +30,11 @@ public class UIManager : MonoBehaviour
     [Header("GameOverMenu")]
     [SerializeField] private Canvas gameOverMenu;
     
+    
+    [Header("Misc")]
     private Alteruna.Avatar _avatar;
+    [SerializeField] private BallController _ballController;
+    [SerializeField] private int winScore; 
 
     private void Awake()
     {
@@ -70,6 +74,41 @@ public class UIManager : MonoBehaviour
         roomMenu.enabled = false; 
         Time.timeScale = 1f;
     }
+
+    public void Restart()
+    {
+        gameOverMenu.enabled = false;
+        pauseMenu.enabled = false;
+        Time.timeScale = 1f;
+        _ballController.Restart();
+    }
+
+
+    public void RecolorScores()
+    {
+        if (_avatar.IsMe && _avatar.gameObject.transform.position.x > 0)
+        {
+            leftLabel.text = "Them";
+            leftLabel.color = Color.red;
+            leftScore.color = Color.red; 
+            
+            rightLabel.text = "You"; 
+            rightLabel.color = Color.green;
+            rightScore.color = Color.green; 
+        }
+
+        else
+        {
+            leftLabel.text = "You";
+            leftLabel.color = Color.green;
+            leftScore.color = Color.green; 
+            
+            rightLabel.text = "Them"; 
+            rightLabel.color = Color.red;
+            rightScore.color = Color.red; 
+        }
+    }
+    
 #region Base Functions
     public void Pause()
     {
@@ -103,29 +142,19 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _avatar = GetComponent<Alteruna.Avatar>();
-    
-        if (_avatar.IsMe && _avatar.gameObject.transform.position.x > 0)
+
+        if (_avatar == null)
         {
-            leftLabel.text = "Them";
-            leftLabel.color = Color.red;
-            leftScore.color = Color.red; 
-            
-            rightLabel.text = "You"; 
-            rightLabel.color = Color.green;
-            rightScore.color = Color.green; 
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Alteruna.Avatar>();
+            if (player.IsMe) _avatar = player; 
         }
 
-        else
-        {
-            leftLabel.text = "You";
-            leftLabel.color = Color.green;
-            leftScore.color = Color.green; 
-            
-            rightLabel.text = "Them"; 
-            rightLabel.color = Color.red;
-            rightScore.color = Color.red; 
-        }
+        
+    }
+
+    private void Update()
+    {
+        
     }
 }
 
