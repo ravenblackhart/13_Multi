@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     
     [Header("Misc")]
     private Alteruna.Avatar _avatar;
+    private Multiplayer _aump; 
     [SerializeField] private BallController _ballController;
     [SerializeField] private int winScore;
 
@@ -58,14 +59,20 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _wallControllers = new List<WallController>(); 
-        _wallControllers.AddRange(FindObjectsOfType<WallController>()); 
+        _wallControllers.AddRange(FindObjectsOfType<WallController>());
+
+        _aump = FindObjectOfType<Multiplayer>(); 
+
+
     }
 
 
     public void OpenRoomsMenu()
     {
+        _aump.RefreshRoomList();
         gameOverMenu.enabled = false;
         pauseMenu.enabled = false;
+        
         
         if (roomMenu.isActiveAndEnabled)
         {
@@ -132,8 +139,8 @@ public class UIManager : MonoBehaviour
         leftInt = Convert.ToInt32(leftScore.text) + 1; 
         rightInt = Convert.ToInt32(rightScore.text) + 1; 
         
-        if (leftInt >= winScore) GameOver(leftLabel.text + "Won !" );
-        else if (rightInt >= winScore) GameOver(rightLabel.text + "Won !");
+        if (leftInt >= winScore) GameOver(leftLabel.text + " Won !", leftLabel.color );
+        else if (rightInt >= winScore) GameOver(rightLabel.text + " Won !", rightLabel.color);
     }
     
 #region Base Functions
@@ -155,9 +162,10 @@ public class UIManager : MonoBehaviour
         }
     }
             
-    public void GameOver(string gameOverText)
+    public void GameOver(string gameOverText, Color color)
     {
-        gameOverTextField.text = gameOverText; 
+        gameOverTextField.text = gameOverText;
+        gameOverTextField.color = color; 
         gameOverMenu.enabled = true;
         Time.timeScale = 0;
                 

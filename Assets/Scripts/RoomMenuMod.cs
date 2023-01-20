@@ -148,6 +148,7 @@ public class RoomMenuMod : MonoBehaviour
 
     public void LeaveRoom()
     {
+        RefreshRooms(); 
         _aump.CurrentRoom?.Leave();
         _uiManager.OpenRoomsMenu();
         
