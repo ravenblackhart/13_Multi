@@ -37,8 +37,27 @@ public class PlayerController2D : MonoBehaviour
             float _translation = Input.GetAxis("Vertical") * Speed;
             _translation *= Time.deltaTime;
 
+            Vector2 pos = transform.position;
+            Vector2 direction = new Vector2(0, _translation);
+            
+            RaycastHit2D[] result = new RaycastHit2D[5];
+            int numberOfHits = Physics2D.RaycastNonAlloc(pos, direction, result, 4f);
+        
+            if (numberOfHits > 0) {
+                foreach (RaycastHit2D hit in result) {
+                    if (!hit ) {
+                        break;
+                    }
+                    
+                    WallController wall = hit.transform.GetComponent<WallController>();
+                    if (wall) { return; }
+                }
+            }
+            
             transform.Translate(0, _translation, 0, Space.Self);
 
+            
+            
         }
     }
 }
