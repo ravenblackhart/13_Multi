@@ -40,7 +40,6 @@ public class WallController : AttributesSync
     {
         points += dmg;
         _uiManager.TriggerGameOver();
-        
     }
 
     public void ResetPoints()

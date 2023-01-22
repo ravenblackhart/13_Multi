@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 
-public class UIManager : MonoBehaviour
+public class UIManager : AttributesSync
 {
     [Header ("MainUI")]
     [SerializeField] private TMP_Text currentRoom; 
@@ -41,7 +41,8 @@ public class UIManager : MonoBehaviour
     private List<WallController> _wallControllers;
     private List<PlayerController2D> _playerControllers; 
     private int leftInt;
-    private int rightInt; 
+    private int rightInt;
+
 
     private void Awake()
     {
@@ -103,6 +104,12 @@ public class UIManager : MonoBehaviour
 
     public void Restart()
     {
+        BroadcastRemoteMethod("RestartBroadcast");
+    }
+
+    [SynchronizableMethod]
+    void RestartBroadcast()
+    {
         foreach (var item in _wallControllers) item.ResetPoints();
         
         gameOverMenu.enabled = false;
@@ -111,8 +118,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         _ballController.Restart();
     }
-
-
+    
     public void RecolorScores(Alteruna.Avatar player)
     {
 
@@ -142,6 +148,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    [SynchronizableMethod]
     public void TriggerGameOver()
     {
         leftInt = Convert.ToInt32(leftScore.text) + 1; 
@@ -150,15 +157,21 @@ public class UIManager : MonoBehaviour
         if (leftInt >= winScore) GameOver(leftLabel.text + " Won !", leftLabel.color );
         else if (rightInt >= winScore) GameOver(rightLabel.text + " Won !", rightLabel.color);
     }
-    
-#region Base Functions
+
+    #region Base Functions
     public void Pause()
+    {
+        BroadcastRemoteMethod("PauseBraodcast");
+    }
+
+    [SynchronizableMethod]
+    void PauseBraodcast()
     {
         if (pauseMenu.isActiveAndEnabled)
         {
             pauseMenu.enabled = false;
             Time.timeScale = 1f;
-           pauseButton.text = "Pause";
+            pauseButton.text = "Pause";
         
         }
                 
@@ -173,8 +186,9 @@ public class UIManager : MonoBehaviour
     public void GameOver(string gameOverText, Color color)
     {
         gameOverTextField.text = gameOverText;
-        gameOverTextField.color = color; 
+        gameOverTextField.color = color;
         gameOverMenu.enabled = true;
+
         Time.timeScale = 0;
                 
     }
