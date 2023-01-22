@@ -157,5 +157,6 @@ public class RoomMenuMod : MonoBehaviour
     public void StartGame()
     {
         _aump.JoinOnDemandRoom(); 
+        _uiManager.Restart();
     }
 }

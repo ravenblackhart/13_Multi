@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Alteruna;
+using Alteruna.Trinity;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    [SerializeField] private Multiplayer mp;
+    
     public float Speed = 0.01f;
     private bool moveBall = false;
     private Vector2 direction = Vector2.left + Vector2.up + Vector2.left ;
@@ -14,16 +18,28 @@ public class BallController : MonoBehaviour
     private Vector2 dir;
     private Vector2 norml;
     
+    void RestartBallPositionRPC(ushort fromUser, ProcedureParameters parameters, uint callId, ITransportStreamReader processor) {
+        RestartBallPosition();
+    }
+    
+    void MoveBallRPC(ushort fromUser, ProcedureParameters parameters, uint callId, ITransportStreamReader processor) {
+        MoveBall();
+    }
+    
     void Start()
     {
         startPos = transform.position;
+        mp.RegisterRemoteProcedure("RestartBallPositionRPC", RestartBallPositionRPC);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Restart();
+            // Invoke on all other clients
+            mp.InvokeRemoteProcedure("RestartRPC", UserId.All, null);
+            // Invoke localy
+            RestartBallPosition();
         }
 
         Vector2 pos = transform.position;
@@ -51,8 +67,15 @@ public class BallController : MonoBehaviour
                 WallController wall = hit.transform.GetComponent<WallController>();
                 if (wall) {
                     if (wall.deathWall) {
-                        wall.IncreasePoints();
-                        Restart();
+                        // Only the host can decide of the scoring and if the game is over
+                        if (mp.Me.Index == 0) 
+                        {
+                            wall.IncreasePoints();
+                            
+                            mp.InvokeRemoteProcedure("RestartBallPositionRPC", UserId.All, null);
+                            RestartBallPosition();
+                        }
+
                         return;
                     }
 
@@ -69,13 +92,12 @@ public class BallController : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            moveBall = true;
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            mp.InvokeRemoteProcedure("MoveBallRPC", UserId.All, null);
+            MoveBall();
         }
     }
-
-
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -83,10 +105,14 @@ public class BallController : MonoBehaviour
         
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(norml.x, norml.y, 0) * 5);
-
     }
 
-    public void Restart()
+    private void MoveBall() 
+    {
+        moveBall = true;
+    }
+    
+    public void RestartBallPosition()
     {
         transform.position = startPos;
         moveBall = false;

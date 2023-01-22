@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Alteruna;
+using Alteruna.Trinity;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using Avatar = UnityEngine.Avatar;
 
-public class WallController : AttributesSync
+public class WallController : AttributesSync 
 {
     [SerializeField] public bool deathWall = false;
     [CanBeNull][SerializeField] private TMP_Text pointsText;
@@ -15,7 +16,7 @@ public class WallController : AttributesSync
     [SynchronizableField] public int points = 0;
     [SerializeField] public int dmg = 1;
 
-    private UIManager _uiManager; 
+    private UIManager _uiManager;
 
     private void Awake()
     {
@@ -28,18 +29,18 @@ public class WallController : AttributesSync
         {
             pointsText.text = points.ToString();
         }
-        
     }
 
     public void DecreasePoints()
     {
         points -= dmg;
     }
-
-    public void IncreasePoints()
+    
+    public void IncreasePoints() 
     {
         points += dmg;
         _uiManager.TriggerGameOver();
+        Commit();
     }
 
     public void ResetPoints()

@@ -9,14 +9,9 @@ public class PlayerController : MonoBehaviour
 
     private Alteruna.Avatar _avatar;
     private MeshRenderer _renderer;
-    
-
-   
 
     void Start()
     {
-        
-        
         // Get components
         _avatar = GetComponent<Alteruna.Avatar>();
         _renderer = GetComponent<MeshRenderer>();
@@ -49,6 +44,5 @@ public class PlayerController : MonoBehaviour
             _translation *= Time.deltaTime;
             transform.Translate(0, _translation, 0, Space.Self);
         }
-    
     }
 }

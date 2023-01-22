@@ -61,9 +61,6 @@ public class PlayerController2D : MonoBehaviour
             }
             
             transform.Translate(0, _translation, 0, Space.Self);
-
-            
-            
         }
     }
 }

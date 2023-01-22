@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Alteruna;
+using Alteruna.Trinity;
 using TMPro;
 using UnityEngine.UIElements;
+using Application = UnityEngine.Application;
 using Button = UnityEngine.UI.Button;
 
 
@@ -34,7 +36,6 @@ public class UIManager : AttributesSync
     
     [Header("Misc")]
     private Alteruna.Avatar _avatar;
-    private Multiplayer _aump; 
     [SerializeField] private BallController _ballController;
     [SerializeField] private int winScore;
 
@@ -43,6 +44,9 @@ public class UIManager : AttributesSync
     private int leftInt;
     private int rightInt;
 
+    private void GameOverRPC(ushort fromUser, ProcedureParameters parameters, uint callId, ITransportStreamReader processor) {
+        GameOver(parameters.Get("text", String.Empty), parameters.Get("useLeftColor", false) ? leftLabel.color : rightLabel.color);
+    }
 
     private void Awake()
     {
@@ -55,7 +59,6 @@ public class UIManager : AttributesSync
         rightScore.text = "0";
 
         currentRoom.text = null;
-
     }
 
     private void Start()
@@ -63,17 +66,16 @@ public class UIManager : AttributesSync
         _wallControllers = new List<WallController>(); 
         _wallControllers.AddRange(FindObjectsOfType<WallController>());
 
-        _aump = FindObjectOfType<Multiplayer>();
-
         _playerControllers = new List<PlayerController2D>(); 
         _playerControllers.AddRange(FindObjectsOfType<PlayerController2D>());
         
+        Multiplayer.RegisterRemoteProcedure("GameOverRPC", GameOverRPC);
     }
 
 
     public void OpenRoomsMenu()
     {
-        _aump.RefreshRoomList();
+        Multiplayer.RefreshRoomList();
         gameOverMenu.enabled = false;
         pauseMenu.enabled = false;
         
@@ -92,8 +94,6 @@ public class UIManager : AttributesSync
             foreach (var item in _playerControllers) item.enabled = false; 
             
         }
-
-        
     }
     public void UpdateRoomName(string roomName)
     {
@@ -115,8 +115,11 @@ public class UIManager : AttributesSync
         gameOverMenu.enabled = false;
         pauseMenu.enabled = false;
 
+        leftInt = 0;
+        rightInt = 0;
+
         Time.timeScale = 1f;
-        _ballController.Restart();
+        _ballController.RestartBallPosition();
     }
     
     public void RecolorScores(Alteruna.Avatar player)
@@ -134,7 +137,6 @@ public class UIManager : AttributesSync
             
             Debug.Log("You are right");
         }
-
         else
         {
             leftLabel.text = "You";
@@ -143,19 +145,32 @@ public class UIManager : AttributesSync
             
             rightLabel.text = "Opponent"; 
             rightLabel.color = Color.red;
-            rightScore.color = Color.red; 
-            
+            rightScore.color = Color.red;
         }
     }
-
-    [SynchronizableMethod]
+    
     public void TriggerGameOver()
     {
         leftInt = Convert.ToInt32(leftScore.text) + 1; 
-        rightInt = Convert.ToInt32(rightScore.text) + 1; 
-        
-        if (leftInt >= winScore) GameOver(leftLabel.text + " Won !", leftLabel.color );
-        else if (rightInt >= winScore) GameOver(rightLabel.text + " Won !", rightLabel.color);
+        rightInt = Convert.ToInt32(rightScore.text) + 1;
+
+        if (leftInt >= winScore) {
+            ProcedureParameters parameters = new ProcedureParameters();
+            parameters.Set("text", rightLabel.text + " Won !");
+            parameters.Set("useLeftColor", true);
+
+            Multiplayer.InvokeRemoteProcedure("GameOverRPC", UserId.All, parameters);   
+            GameOver(leftLabel.text + " Won !", leftLabel.color);
+        }
+        else if (rightInt >= winScore) 
+        {
+            ProcedureParameters parameters = new ProcedureParameters();
+            parameters.Set("text", leftLabel.text + " Won !");
+            parameters.Set("useLeftColor", false);
+            
+            Multiplayer.InvokeRemoteProcedure("GameOverRPC", UserId.All, parameters);
+            GameOver(rightLabel.text + " Won !", rightLabel.color);
+        }
     }
 
     #region Base Functions
@@ -174,7 +189,6 @@ public class UIManager : AttributesSync
             pauseButton.text = "Pause";
         
         }
-                
         else
         {
             pauseMenu.enabled = true;
@@ -190,7 +204,6 @@ public class UIManager : AttributesSync
         gameOverMenu.enabled = true;
 
         Time.timeScale = 0;
-                
     }
     public void Quit()
     {

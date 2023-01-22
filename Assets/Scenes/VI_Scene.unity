@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5487,6 +5487,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 10081901}
   gameOverMenu: {fileID: 524743788}
   gameOverTextField: {fileID: 96913815}
+  Multiplayer: {fileID: 1956972177}
   _ballController: {fileID: 1809270913}
   winScore: 3
 --- !u!114 &1489300730
@@ -6412,6 +6413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e222466c7e16cb04eb7dc42cf594a233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mp: {fileID: 1956972177}
   Speed: 10
 --- !u!58 &1809270914
 CircleCollider2D:
