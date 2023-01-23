@@ -50,7 +50,7 @@ public class UIManager : AttributesSync
 
     private void Awake()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 0; 
         roomMenu.enabled = true;
         gameOverMenu.enabled = false;
         pauseMenu.enabled = false;

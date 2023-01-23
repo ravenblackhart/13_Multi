@@ -159,4 +159,9 @@ public class RoomMenuMod : MonoBehaviour
         _aump.JoinOnDemandRoom(); 
         _uiManager.Restart();
     }
+
+    public void RefreshRoomsList()
+    {
+        _aump.RefreshRoomList();
+    }
 }
